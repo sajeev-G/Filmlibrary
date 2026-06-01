@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOORA Health Film Repository</title>
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%230f766e"/><text x="32" y="41" text-anchor="middle" font-family="Arial" font-size="30" font-weight="700" fill="white">N</text></svg>' />
+    <script type="module" crossorigin src="/assets/index-BGCSSl5-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dcg2Os-R.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Repository overview">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">N</div>
+          <div>
+            <h1>NOORA Health Film Repository</h1>
+            <p>YouTube and Google Drive library</p>
+          </div>
+        </div>
+
+        <section class="stats-grid" aria-label="Repository statistics">
+          <div>
+            <span id="totalItems">0</span>
+            <small>Total</small>
+          </div>
+          <div>
+            <span id="totalLanguages">0</span>
+            <small>Languages</small>
+          </div>
+          <div>
+            <span id="totalSubjects">0</span>
+            <small>Subjects</small>
+          </div>
+          <div>
+            <span id="totalYears">0</span>
+            <small>Years</small>
+          </div>
+        </section>
+
+        <nav class="quick-filters" aria-label="Quick filters">
+          <button class="quick-filter active" data-filter-type="all" type="button">All videos</button>
+          <button class="quick-filter" data-filter-type="youtube" type="button">Youtube</button>
+          <button class="quick-filter" data-filter-type="drive" type="button">Google drive</button>
+        </nav>
+
+        <section class="collections-panel">
+          <div class="panel-heading">
+            <h2>Main Categories</h2>
+            <span id="subjectNavCount">0</span>
+          </div>
+          <div id="subjectNavList" class="subject-list"></div>
+          <button id="subjectToggleButton" class="subject-toggle" type="button">Show more subjects</button>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <section class="auth-panel">
+          <div>
+            <strong id="authStatus">Checking session...</strong>
+            <span id="roleBadge" class="role-badge">Viewer</span>
+          </div>
+          <div class="auth-actions">
+            <input id="emailInput" type="email" placeholder="Email login" />
+            <button id="emailLoginButton" class="ghost-button" type="button">Email Link</button>
+            <button id="googleLoginButton" class="ghost-button" type="button">Google Login</button>
+            <button id="logoutButton" class="ghost-button" type="button" hidden>Logout</button>
+          </div>
+        </section>
+
+        <header class="toolbar">
+          <div class="search-wrap">
+            <label for="searchInput">Search library</label>
+            <input id="searchInput" type="search" placeholder="Search title, subject, language, tags..." />
+          </div>
+          <div class="toolbar-actions">
+            <button id="importButton" class="ghost-button" type="button">Import CSV/Excel</button>
+            <button id="exportCsvButton" class="ghost-button" type="button">Export CSV</button>
+            <button id="exportExcelButton" class="ghost-button" type="button">Export Excel</button>
+            <button id="exportJsonButton" class="ghost-button" type="button">Export JSON</button>
+            <button id="importJsonButton" class="ghost-button" type="button">Import JSON</button>
+            <button id="templateButton" class="ghost-button" type="button">Import Template</button>
+            <button id="manageUsersButton" class="ghost-button" type="button">Manage Users</button>
+            <button id="clearLibraryButton" class="danger-button" type="button">Clear Library</button>
+            <button id="newItemButton" class="primary-button" type="button">Add media</button>
+          </div>
+        </header>
+
+        <section class="filters" aria-label="Media filters">
+          <label>
+            Year
+            <select id="yearFilter">
+              <option value="">All years</option>
+            </select>
+          </label>
+          <label>
+            Main Category
+            <select id="subjectFilter">
+              <option value="">All main categories</option>
+            </select>
+          </label>
+          <label>
+            Language
+            <select id="languageFilter">
+              <option value="">All languages</option>
+            </select>
+          </label>
+          <label>
+            Sub-category
+            <select id="categoryFilter">
+              <option value="">All categories</option>
+            </select>
+          </label>
+          <label>
+            Programme Support
+            <select id="programmeSupportFilter">
+              <option value="">All media</option>
+              <option value="MCCS">MCCS</option>
+              <option value="MCCS Vertical">MCCS Vertical</option>
+              <option value="NON med videos">NON med videos</option>
+              <option value="none">Not marked</option>
+            </select>
+          </label>
+          <label>
+            Sort by
+            <select id="sortFilter">
+              <option value="newest">Newest first</option>
+              <option value="priority">Pinned & starred first</option>
+              <option value="recentlyAdded">Recently added</option>
+              <option value="recentlyUpdated">Recently updated</option>
+              <option value="oldest">Oldest first</option>
+              <option value="title">Title A-Z</option>
+              <option value="subject">Subject A-Z</option>
+            </select>
+          </label>
+          <label>
+            Pinned/starred subject
+            <select id="prioritySubjectFilter">
+              <option value="">Choose subject</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="content-split">
+          <div class="library-panel">
+            <div class="section-heading">
+              <div>
+                <h2>Media Library</h2>
+                <p id="resultSummary">No records yet</p>
+              </div>
+              <button id="clearFiltersButton" class="text-button" type="button">Clear filters</button>
+            </div>
+            <div id="mediaGrid" class="media-grid" aria-live="polite"></div>
+            <div class="pagination-bar">
+              <button id="prevPageButton" class="ghost-button" type="button">Previous</button>
+              <span id="pageSummary">Page 1</span>
+              <button id="nextPageButton" class="ghost-button" type="button">Next</button>
+            </div>
+            <div id="emptyState" class="empty-state" hidden>
+              <h3>No matching media</h3>
+              <p>Add a record or adjust the current filters.</p>
+              <button class="primary-button" data-empty-add type="button">Add media</button>
+            </div>
+          </div>
+        </section>
+
+        <div id="formOverlay" class="form-overlay" hidden>
+          <aside class="form-panel" aria-label="Add or edit media">
+            <div class="section-heading">
+              <div>
+                <h2 id="formTitle">Add Media</h2>
+                <p>Catalog films and videos by topic, year, source, and language.</p>
+              </div>
+              <button id="closeFormButton" class="text-button" type="button">Close</button>
+            </div>
+            <form id="mediaForm">
+              <input id="itemId" type="hidden" />
+              <label>
+                Title
+                <input id="titleInput" required type="text" placeholder="e.g. Diabetes prevention basics" />
+              </label>
+              <div class="field-row">
+                <label>
+                  Year
+                  <input id="yearInput" required min="2010" max="2100" type="number" />
+                </label>
+                <label>
+                  Duration
+                  <input id="durationInput" type="text" placeholder="12:30" />
+                </label>
+              </div>
+              <label>
+                Main Category
+                <input id="subjectInput" required type="text" list="subjectOptions" placeholder="ANC, PNC, NCD, TB..." />
+              </label>
+              <label>
+                Description / Sub-category
+                <input id="categoryInput" required type="text" placeholder="Training, Awareness, Patient education..." />
+              </label>
+              <div class="field-row">
+                <label>
+                  Language
+                  <input id="languageInput" required type="text" list="languageOptions" placeholder="Hindi, Tamil, Malayalam..." />
+                </label>
+                <label>
+                  Source
+                  <select id="sourceInput">
+                    <option value="YouTube">YouTube</option>
+                    <option value="Google Drive">Google Drive</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </label>
+              </div>
+              <label>
+                Link
+                <input id="urlInput" required type="url" placeholder="https://youtube.com/... or https://drive.google.com/..." />
+              </label>
+              <label>
+                Thumbnail
+                <input id="thumbnailInput" type="url" placeholder="Auto-filled from YouTube/Drive, or paste image URL" />
+              </label>
+              <fieldset class="variant-options">
+                <legend>Additional language links</legend>
+                <div id="variantRows" class="variant-rows"></div>
+                <button id="addVariantButton" class="ghost-button" type="button">Add language link</button>
+              </fieldset>
+              <label>
+                Tags
+                <input id="tagsInput" type="text" placeholder="comma separated tags" />
+              </label>
+              <fieldset class="priority-options">
+                <legend>Subject priority</legend>
+                <label class="checkbox-line">
+                  <input id="pinnedInput" type="checkbox" />
+                  Pin inside subject
+                </label>
+                <label class="checkbox-line">
+                  <input id="starredInput" type="checkbox" />
+                  Star important media
+                </label>
+              </fieldset>
+              <label>
+                Programme Support
+                <select id="programmeSupportInput">
+                  <option value="">Not programme support</option>
+                  <option value="MCCS">MCCS</option>
+                  <option value="MCCS Vertical">MCCS Vertical</option>
+                  <option value="NON med videos">NON med videos</option>
+                </select>
+              </label>
+              <label>
+                Notes
+                <textarea id="notesInput" rows="4" placeholder="Audience, presenter, rights, version, remarks..."></textarea>
+              </label>
+              <div class="form-actions">
+                <button id="cancelEditButton" class="ghost-button" type="button" hidden>Cancel edit</button>
+                <button class="primary-button" type="submit">Save media</button>
+              </div>
+            </form>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <div id="clearConfirmOverlay" class="modal-overlay" hidden>
+      <section class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="clearConfirmTitle">
+        <h2 id="clearConfirmTitle">Clear entire library?</h2>
+        <p>All shared media records in Supabase will be cleared for every user. A CSV backup will be downloaded first, but this action cannot be undone inside the app.</p>
+        <label class="checkbox-line confirm-check">
+          <input id="clearConfirmCheckbox" type="checkbox" />
+          I understand that all media will be cleared.
+        </label>
+        <div class="form-actions">
+          <button id="cancelClearButton" class="ghost-button" type="button">Cancel</button>
+          <button id="confirmClearButton" class="danger-button" type="button" disabled>Yes, clear media</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="userManageOverlay" class="modal-overlay" hidden>
+      <section class="confirm-modal user-modal" role="dialog" aria-modal="true" aria-labelledby="userManageTitle">
+        <div class="section-heading">
+          <div>
+            <h2 id="userManageTitle">Manage users</h2>
+            <p>Admins can assign viewer, editor, and admin roles.</p>
+          </div>
+          <button id="closeUserManageButton" class="text-button" type="button">Close</button>
+        </div>
+        <div id="userList" class="user-list"></div>
+      </section>
+    </div>
+
+    <input id="importFileInput" type="file" accept=".csv,.tsv,.txt,.xls,text/csv,text/tab-separated-values,application/vnd.ms-excel" hidden />
+    <input id="jsonFileInput" type="file" accept="application/json,.json" hidden />
+    <datalist id="subjectOptions"></datalist>
+    <datalist id="languageOptions"></datalist>
+    <div id="loadingOverlay" class="loading-overlay" hidden>Loading...</div>
+    <div id="toast" class="toast" hidden></div>
+  </body>
+</html>
